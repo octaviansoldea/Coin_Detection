@@ -10,7 +10,7 @@ from scipy import misc
 from skimage import data, color
 from skimage.transform import rescale, resize, downscale_local_mean
 
-def convert_sed_to_h5py(image_size, full_path_file_out, full_path_in, range_ids_from_to):
+def convert_set_to_h5py(image_size, full_path_file_out, full_path_in, range_ids_from_to):
 
     with open('data/cat_to_name.json') as json_file:
         data = json.load(json_file)
@@ -51,26 +51,16 @@ def convert_sed_to_h5py(image_size, full_path_file_out, full_path_in, range_ids_
         hf.create_dataset('train_set_y', data=train_set_y_orig)
         hf.close()
 
-    """
-    train_dataset = h5py.File('datasets/train_catvnoncat.h5', "r")
-    train_set_x_orig = np.array(train_dataset["train_set_x"][:])  # your train set features
-    train_set_y_orig = np.array(train_dataset["train_set_y"][:])  # your train set labels
+        """
+        # Debug purposes
+        hf = h5py.File(full_path_file_out, 'r')
+        tx = np.array(hf.get('train_set_x'))
+        ty = np.array(hf.get('train_set_y'))
+        hf.close()
+        """
 
-    test_dataset = h5py.File('datasets/test_catvnoncat.h5', "r")
-    test_set_x_orig = np.array(test_dataset["test_set_x"][:])  # your test set features
-    test_set_y_orig = np.array(test_dataset["test_set_y"][:])  # your test set labels
-
-
-
-
-    np.array(train_dataset["train_set_x"][:])  # your train set features
-    train_set_y_orig =
-
-
-    """
-
-convert_sed_to_h5py(
+convert_set_to_h5py(
     image_size=[500, 500],
-    full_path_file_out='/home/octavian/Octavian/ContinuedFractions/NeuralNetwork/datasets/coins/train_set.h5',
-    full_path_in='/home/octavian/Octavian/ContinuedFractions/NeuralNetwork/datasets/coins/data/train/',
+    full_path_file_out='/home/octavian/Octavian/Coin_Detection/coins/train_set.h5',
+    full_path_in='/home/octavian/Octavian/Coin_Detection/coins/data/train/',
     range_ids_from_to=[206, 212])
